@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.Sql;
-using System.Configuration /// Extracts values from Web.config when connection is made.
+using System.Configuration; /// Extracts values from Web.config when connection is made.
 
 /// <summary>
 /// This file is for the button Save.
@@ -23,10 +23,29 @@ public partial class _Default : System.Web.UI.Page
     {
         string connString = ConfigurationManager.ConnectionStrings["sampConnectionString"].ConnectionString;
         SqlConnection conn = new SqlConnection(connString);
-        SqlCommand cmd = new SqlCommand("procInsert", conn);
+        SqlCommand cmd = new SqlCommand("procinsert", conn);
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@name", TextBox1.Text);
         cmd.Parameters.AddWithValue("@email", TextBox2.Text);
         cmd.Parameters.AddWithValue("@datasaved", Calendar1.SelectedDate);
+
+        try {
+            conn.Open();
+            cmd.ExecuteNonQuery();
+        }
+
+        catch(Exception ex) {
+            Response.Write(ex.Message);
+        }
+
+        finally {
+            conn.Close();
+        }
+
+        GridView1.DataBind();
+    }
+    protected void Calendar1_SelectionChanged(object sender, EventArgs e)
+    {
+        TextBox3.Text = Calendar1.SelectedDate.ToShortDateString();
     }
 }

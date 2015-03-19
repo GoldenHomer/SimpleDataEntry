@@ -4,26 +4,45 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Whoa</title>
+    <link href="StyleSheet.css" rel="stylesheet" />
 </head>
+
 <body>
     <form id="form1" runat="server">
-    <div>
-    
-        Enter Name:
-        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Must Enter Name" ControlToValidate="TextBox1"></asp:RequiredFieldValidator>
-        <br />
-        Enter Email:
-        <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Must Enter Email" ControlToValidate="TextBox2"></asp:RequiredFieldValidator>
-        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Must be in email format" ControlToValidate="TextBox2" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
-        <br />
-        Enter Date:
-        <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Must enter date" ControlToValidate="TextBox3"></asp:RequiredFieldValidator>
-        <br />
-        <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
+    <div id="main">
+        <asp:UpdatePanel ID="boxes" runat="server">
+            <ContentTemplate>
+                <div id="boxdiv">
+                Enter Name:
+                <asp:TextBox ID="TextBox1" CssClass="boxes" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Must Enter Name" ControlToValidate="TextBox1"></asp:RequiredFieldValidator>
+                <br />
+                Enter Email:
+                <asp:TextBox ID="TextBox2" CssClass="boxes" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Must Enter Email" ControlToValidate="TextBox2"></asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Must be in email format" ControlToValidate="TextBox2" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
+                <br />
+                Enter Date:
+                <asp:TextBox ID="TextBox3" CssClass="boxes" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Must enter date" ControlToValidate="TextBox3"></asp:RequiredFieldValidator>
+                <br />
+
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+        
+        <div id="calend">
+            <asp:UpdatePanel ID="calendholder" runat="server">
+                <ContentTemplate>
+                    <asp:Calendar ID="Calendar1" runat="server" OnSelectionChanged="Calendar1_SelectionChanged"></asp:Calendar>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+
+        
         <br />
         <asp:Button ID="Button1" runat="server" Text="Save" OnClick="Button1_Click" />
         <br />
@@ -47,8 +66,6 @@
             <SortedDescendingCellStyle BackColor="#EAEAD3" />
             <SortedDescendingHeaderStyle BackColor="#575357" />
         </asp:GridView>
-    
-    </div>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:sampConnectionString %>" DeleteCommand="DELETE FROM [dataentry] WHERE [Id] = @Id" InsertCommand="INSERT INTO [dataentry] ([name], [email], [dateadded]) VALUES (@name, @email, @dateadded)" SelectCommand="SELECT [Id], [name], [email], [dateadded] FROM [dataentry]" UpdateCommand="UPDATE [dataentry] SET [name] = @name, [email] = @email, [dateadded] = @dateadded WHERE [Id] = @Id">
             <DeleteParameters>
                 <asp:Parameter Name="Id" Type="Int32" />
@@ -65,6 +82,8 @@
                 <asp:Parameter Name="Id" Type="Int32" />
             </UpdateParameters>
         </asp:SqlDataSource>
+        </div>
     </form>
+
 </body>
 </html>
