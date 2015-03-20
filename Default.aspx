@@ -6,6 +6,19 @@
 <head runat="server">
     <title>Simple Data Entry</title>
     <link href="StyleSheet.css" rel="stylesheet" />
+    <script src="Scripts/jquery-2.1.3.min.js"></script>
+    <script src="Scripts/jquery-ui-1.11.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#TextBox3").mouseover(function () {
+                $("#calend").slideDown(500);
+            });
+
+            $("#Button1").click(function () {
+                $("#calend").slideDown(500);
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -34,7 +47,7 @@
             </ContentTemplate>
         </asp:UpdatePanel>
         
-        <div id="calend">
+        <div id="calend" style="display:none;">
             <asp:UpdatePanel ID="calendholder" runat="server">
                 <ContentTemplate>
                     <asp:Calendar ID="Calendar1" runat="server" OnSelectionChanged="Calendar1_SelectionChanged"></asp:Calendar>
@@ -47,41 +60,48 @@
         <asp:Button ID="Button1" runat="server" Text="Save" OnClick="Button1_Click" />
         <br />
         <br />
-        <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="Id" DataSourceID="SqlDataSource1" ForeColor="Black" GridLines="Vertical">
-            <AlternatingRowStyle BackColor="White" />
-            <Columns>
-                <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
-                <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
-                <asp:BoundField DataField="name" HeaderText="name" SortExpression="name" />
-                <asp:BoundField DataField="email" HeaderText="email" SortExpression="email" />
-                <asp:BoundField DataField="dateadded" HeaderText="dateadded" SortExpression="dateadded" />
-            </Columns>
-            <FooterStyle BackColor="#CCCC99" />
-            <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
-            <RowStyle BackColor="#F7F7DE" />
-            <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
-            <SortedAscendingCellStyle BackColor="#FBFBF2" />
-            <SortedAscendingHeaderStyle BackColor="#848384" />
-            <SortedDescendingCellStyle BackColor="#EAEAD3" />
-            <SortedDescendingHeaderStyle BackColor="#575357" />
-        </asp:GridView>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:sampConnectionString %>" DeleteCommand="DELETE FROM [dataentry] WHERE [Id] = @Id" InsertCommand="INSERT INTO [dataentry] ([name], [email], [dateadded]) VALUES (@name, @email, @dateadded)" SelectCommand="SELECT [Id], [name], [email], [dateadded] FROM [dataentry]" UpdateCommand="UPDATE [dataentry] SET [name] = @name, [email] = @email, [dateadded] = @dateadded WHERE [Id] = @Id">
-            <DeleteParameters>
-                <asp:Parameter Name="Id" Type="Int32" />
-            </DeleteParameters>
-            <InsertParameters>
-                <asp:Parameter Name="name" Type="String" />
-                <asp:Parameter Name="email" Type="String" />
-                <asp:Parameter DbType="Date" Name="dateadded" />
-            </InsertParameters>
-            <UpdateParameters>
-                <asp:Parameter Name="name" Type="String" />
-                <asp:Parameter Name="email" Type="String" />
-                <asp:Parameter DbType="Date" Name="dateadded" />
-                <asp:Parameter Name="Id" Type="Int32" />
-            </UpdateParameters>
-        </asp:SqlDataSource>
+
+            <asp:UpdatePanel ID="gridholder" runat="server" >
+                <ContentTemplate>
+                      <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="Id" DataSourceID="SqlDataSource1" ForeColor="Black" GridLines="Vertical">
+                            <AlternatingRowStyle BackColor="White" />
+                            <Columns>
+                                <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+                                <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
+                                <asp:BoundField DataField="name" HeaderText="name" SortExpression="name" />
+                                <asp:BoundField DataField="email" HeaderText="email" SortExpression="email" />
+                                <asp:BoundField DataField="dateadded" HeaderText="dateadded" SortExpression="dateadded" />
+                            </Columns>
+                            <FooterStyle BackColor="#CCCC99" />
+                            <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+                            <RowStyle BackColor="#F7F7DE" />
+                            <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+                            <SortedAscendingCellStyle BackColor="#FBFBF2" />
+                            <SortedAscendingHeaderStyle BackColor="#848384" />
+                            <SortedDescendingCellStyle BackColor="#EAEAD3" />
+                            <SortedDescendingHeaderStyle BackColor="#575357" />
+
+                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:sampConnectionString %>" DeleteCommand="DELETE FROM [dataentry] WHERE [Id] = @Id" InsertCommand="INSERT INTO [dataentry] ([name], [email], [dateadded]) VALUES (@name, @email, @dateadded)" SelectCommand="SELECT [Id], [name], [email], [dateadded] FROM [dataentry]" UpdateCommand="UPDATE [dataentry] SET [name] = @name, [email] = @email, [dateadded] = @dateadded WHERE [Id] = @Id">
+                            <DeleteParameters>
+                                <asp:Parameter Name="Id" Type="Int32" />
+                            </DeleteParameters>
+                            <InsertParameters>
+                                <asp:Parameter Name="name" Type="String" />
+                                <asp:Parameter Name="email" Type="String" />
+                                <asp:Parameter DbType="Date" Name="dateadded" />
+                            </InsertParameters>
+                            <UpdateParameters>
+                                <asp:Parameter Name="name" Type="String" />
+                                <asp:Parameter Name="email" Type="String" />
+                                <asp:Parameter DbType="Date" Name="dateadded" />
+                                <asp:Parameter Name="Id" Type="Int32" />
+                            </UpdateParameters>
+                        </asp:SqlDataSource>
+                    </asp:GridView>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+
         </div>
     </form>
 

@@ -43,6 +43,10 @@ public partial class _Default : System.Web.UI.Page
         }
 
         GridView1.DataBind();
+
+        TextBox1.Text = "";
+        TextBox2.Text = "";
+        TextBox3.Text = "";
     }
     protected void Calendar1_SelectionChanged(object sender, EventArgs e)
     {
