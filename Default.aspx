@@ -66,7 +66,7 @@
                       <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="Id" DataSourceID="SqlDataSource1" ForeColor="Black" GridLines="Vertical">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
-                                <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+                                <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" CausesValidation="False" />
                                 <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
                                 <asp:BoundField DataField="name" HeaderText="name" SortExpression="name" />
                                 <asp:BoundField DataField="email" HeaderText="email" SortExpression="email" />
@@ -81,7 +81,8 @@
                             <SortedAscendingHeaderStyle BackColor="#848384" />
                             <SortedDescendingCellStyle BackColor="#EAEAD3" />
                             <SortedDescendingHeaderStyle BackColor="#575357" />
-
+					</asp:GridView>
+					
                         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:sampConnectionString %>" DeleteCommand="DELETE FROM [dataentry] WHERE [Id] = @Id" InsertCommand="INSERT INTO [dataentry] ([name], [email], [dateadded]) VALUES (@name, @email, @dateadded)" SelectCommand="SELECT [Id], [name], [email], [dateadded] FROM [dataentry]" UpdateCommand="UPDATE [dataentry] SET [name] = @name, [email] = @email, [dateadded] = @dateadded WHERE [Id] = @Id">
                             <DeleteParameters>
                                 <asp:Parameter Name="Id" Type="Int32" />
@@ -98,12 +99,9 @@
                                 <asp:Parameter Name="Id" Type="Int32" />
                             </UpdateParameters>
                         </asp:SqlDataSource>
-                    </asp:GridView>
                 </ContentTemplate>
             </asp:UpdatePanel>
-
         </div>
     </form>
-
 </body>
 </html>
